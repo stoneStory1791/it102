@@ -1,0 +1,92 @@
+<!-- IT102 JavaScript: Quarter Project of Choice-->
+<!--Student Name: Ying Cheung-->
+<!-- The form gathers user input with a textfield-->
+<!-- On finised(click), the button calls a JavaScript function: result() -->
+<!--The script consists another function to validate user input-->
+<!--To be able to retire, you need to have saving 35times of your expected annual living expenses-->
+<!-- the JavaScript is placed in the <head> section -->
+<!--The  result displays on the body-->
+
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+<html>
+<head>
+    <title>IT102 Quarter of Choice - Retirement calculator</title>
+<script language="JavaScript">
+    
+// function to validate user input, prompt guidelines to user to enter expected input, use focus() to help user navigate where to enter the expected input
+function validate(){
+
+    if (isNaN(document.calculator.annualExpense.value)==true){
+        alert("Please enter a number for annual expense.");
+        document.calculator.annualExpense.focus();
+        //document.calculator.annualExpense.value;
+    }
+    else if (isNaN(document.calculator.monthSaving.value)==true){
+        alert("Please enter a number for monthly saving.");
+        document.calculator.monthSaving.focus();
+    }
+    else if (isNaN(document.calculator.growthRate.value)==true){
+        alert("Please enter a number for growth rate.");
+        document.calculator.growthRate.focus();
+    }
+} //end of validate()
+
+
+//Function to process the input
+function result(){
+    
+// validate the input first before calculation
+    validate()
+    
+// declare variables
+    
+var annual_expense=Number(document.calculator.annualExpense.value);
+var month_saving=Number(document.calculator.monthSaving.value);
+var growth_rate=Number(document.calculator.growthRate.value)/100;
+var output="";
+// https://www.cnbc.com/2017/04/19/the-formula-early-retirees-use-to-know-theyll-have-enough-money.html
+var retire_money=annual_expense*25 // 4% rule for retirement, reference link above
+var month= (Math.log(((retire_money*growth_rate/12)/month_saving)+1))/(Math.log(1+growth_rate/12))// formula from open source textbook
+var Yr=month/12
+var year=Yr.toFixed(2)
+    
+    output+="Here is your result: <br/>"
+    output+="You need $"+retire_money+" to retire.(4 % rule for retirement) <br/>"
+    output+="If you save $"+month_saving+ " monthly and with growth rate "+growth_rate+". You will reach your retirement money in "+ year+ " year."
+    
+
+   document.getElementById("result").innerHTML=output; 
+    
+} //end of result()
+
+</script>
+</head>
+<body>
+<!--input session-->
+<form name="calculator">
+    <h2>Welcome to retirement calculator. </h2>
+    <h3>This calculator will calculate how much money you need for your retirement.</h3>
+    <h3>And also, how long it will take for you to save enough money to retire.</h3>
+    <h4>Please enter the following: </h4>
+    <p>Note: Please enter numbers in digit format(e.g. 123, NOT onetwothree), otherwise the program will send you a message to ask you to enter the information again. </p>
+    
+ 
+    <h4>How much you expect to spend annually after you retire?</h4>
+    <input type="text" placeholder="0000" name="annualExpense"><br/>
+    <h4>How much you are saving monthly?</h4>
+    <input type="text" placeholder="0000" name="monthSaving"><br/>
+    <h4>How much percentage do you expect your money will grow annually? </h4>
+    <input type="text" placeholder="0" name="growthRate">%<br/>
+    <p>Note: on average, stock market grows 7-10% annually over 30 years period. But market fluctuates a lot. Risk is high.</p>
+    <p>On average, interest rate is 1-2% annually. Risk is very low but growth is small.</p>
+  
+
+<input type="button" value="Finished?Click here!" onClick="result()">
+    </form>
+    
+<!--output session-->
+<p id="result"></p>
+</body>
+</html>

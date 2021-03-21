@@ -24,30 +24,49 @@ function Die(sides) {
 this.sides = sides;
 
 this.values = [];
+
+    //creates an array for the sides
 for (i= 0; i<this.sides; i++)
 {this.values[i]=i;}
 
+    //showing = array index of this.value array
 this.roll = function () {
-var showing = Math.ceil(Math.random()*this.sides);
+var showing = Math.ceil(Math.random()*this.sides)-1;/////// can this get to 0??????? if not, then this.value[0] will not show up at roll////////////3/19
+////// DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 return this.values[showing];
 };
-
-}////// where to put this?
     
+
 var pokerSide = ["A", "K", "Q", "J", "10","9"];
-this.poker = function () {
-for (i= 0; i<this.sides; i++)
+    // matching this.values array with pokerSide array.
+this.poker = function () { //syntax error??????????????????????????????????3/19
+//for (i= 0; i<this.sides; i++)// logic error
+for (i= 0; i<pokerSide.length; i++)// corrected????????????????????????????3/19
+    ////// ask Eric about this.sides or pokerSide.length 3/19######### 
 {this.values[i] = pokerSide[i];}
 };
+}// syntax error, missing closing } 
+    // add } //end of object prototype
 
-
-var myDie = [];
+//var myDie = [];// syntax error, incorrect variable name
+var myDice=[]
 
 for (c=0; c<5; c++){
-myDice[c] = new Die(5);
+myDice[c] = new Die(5);////// Tried 5 but only create 5 sides, but if put in pokerSide.length, it works. but random may have problems##############3/20
+    ///////////////////DONE!!!!!!!!!!!!!!!!!
+    ////// ask Eric, how come new Die(5) still will be able to create 5 dice ##############with 6 sides////// o... it may affect the showing variable!!!! 3/19
 myDice[c].poker();
 }
-
+//
+alert(myDice[0].values)
+alert(myDice[1].values)
+alert(myDice[2].values)
+alert(myDice[3].values)
+alert(myDice[4].values)
+alert("done")
+////
+//alert(myDice[1].poker)
+//    
 var output = "";
 for (k = 0; k< 5; k++){
 output+=myDice[k].roll();
@@ -56,8 +75,15 @@ output+=" ";
 
 alert(output);
     
-//////////////// missing pair }
+
 </script>
     
     </body>
 </html>
+
+
+
+<!--closing } 43-->
+<!--line 49 myDic-->
+<!--51 <=
+39 <=-->
